@@ -1,0 +1,54 @@
+<%- include('partials/header') %>
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<section class="latest-news">
+    <div class="container">
+        <h1 class="section-heading">Latest News from Blog</h1>
+        <div class="article-wrapper">
+            <% const blogPosts = [
+                {
+                    image: "/images/coffee.jpg",
+                    date: "July 03, 2025",
+                    author: "FreshMeal",
+                    comments: "12 Comments",
+                    title: "Discover the Benefits of Healthy Eating with FreshMeal",
+                    description: "Eating a balanced diet is essential for maintaining good health and well-being. FreshMeal offers a variety of nutritious, ready-to-eat meals designed to fuel your body and fit into your busy lifestyle. Our meals are crafted with fresh, locally sourced ingredients, ensuring both taste and quality in every bite. Embrace healthier eating today with FreshMeal and experience the difference."
+                },
+                {
+                    image: "/images/donut.jpg",
+                    date: "July 03, 2025",
+                    author: "FreshMeal",
+                    comments: "12 Comments",
+                    title: "Why FreshMeal is Your Best Choice for Healthy Living",
+                    description: "At FreshMeal, we believe that eating healthy should be simple, convenient, and enjoyable. Our ready-to-eat meals are designed to nourish your body with fresh, high-quality ingredients while saving you time. Whether you're looking to lose weight, build muscle, or maintain a balanced diet, we offer meals tailored to your needs. Experience the difference with FreshMeal and make healthy eating a part of your lifestyle."
+                }
+            ]; %>
+
+            <% blogPosts.forEach(post => { %>
+                <article class="card magic-shadow-sm">
+                    <div class="blog-image">
+                        <img src="<%= post.image %>" alt="<%= post.title %>">
+                    </div>
+                    <div class="card-content">
+                        <div class="post-meta flex items-center justify-between">
+                            <span><%= post.date %></span>
+                            <div>
+                                <span>Posted by <strong><%= post.author %></strong></span>
+                                <span class="comment-count"><%= post.comments %></span>
+                            </div>
+                        </div>
+                        <h2><%= post.title %></h2>
+                        <p><%= post.description %></p>
+                    </div>
+                </article>
+            <% }) %>
+        </div>
+
+        <div class="text-center btn-wrapper">
+            <button class="btn btn-secondary">View All</button>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer') %>
