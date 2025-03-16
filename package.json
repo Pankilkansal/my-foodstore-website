@@ -1,0 +1,22 @@
+{
+  "name": "my_awesome-food-store",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "daisyui": "^5.0.4",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9",
+    "sass": "^1.85.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
