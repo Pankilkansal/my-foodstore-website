@@ -1,0 +1,61 @@
+<!-- Include the header -->
+<%- include('partials/header') %>
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<section class="big-deal">
+    <div class="container">
+        <h1 class="section-heading text-pure">Big Deals of the Week</h1>
+        <div class="timer">
+            <div>
+                <span id="days">02</span>
+                <span>Days</span>
+            </div>
+            <div>
+                <span id="hours">24</span>
+                <span>Hours</span>
+            </div>
+            <div>
+                <span id="minutes">55</span>
+                <span>Minutes</span>
+            </div>
+            <div>
+                <span id="seconds">58</span>
+                <span>Seconds</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Include the footer -->
+<%- include('partials/footer') %>
+
+<script>
+    function startCountdown() {
+        let countdownDate = new Date().getTime() + (2 * 24 * 60 * 60 * 1000); 
+
+        function updateCountdown() {
+            let now = new Date().getTime();
+            let timeLeft = countdownDate - now;
+
+            let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+            if (timeLeft < 0) {
+                document.querySelector(".timer").innerHTML = "<h2>Deal Expired!</h2>";
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+    }
+
+    window.onload = startCountdown;
+</script>
