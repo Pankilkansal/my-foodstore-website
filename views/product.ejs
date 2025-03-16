@@ -1,0 +1,44 @@
+<%- include('partials/header') %>
+<section class="top-products">
+    <div class="container">
+        <h1 class="section-heading">Top Products</h1>
+        <div class="slider">
+            <button class="slider-btn prev-btn"><img src="/icons/pre.svg" alt="Previous"></button>
+            <button class="slider-btn next-btn"><img src="/icons/next.svg" alt="Next"></button>
+            <div class="food-slider">
+                <% products.forEach(product => { %>
+                    <div class="food-card magic-shadow-sm">
+                        <div class="product-image flex items-center justify-center">
+                            <img src="<%= product.image %>" alt="<%= product.name %>">
+                        </div>
+                        <hr>
+                        <div>
+                            <h2 class="text-center"><%= product.name %></h2>
+                            <div class="stars flex justify-center items-center">
+                                <% for(let i = 0; i < product.rating; i++) { %>
+                                    <img src="/icons/start-filled.svg" alt="Star">
+                                <% } %>
+                                <% for(let i = product.rating; i < 5; i++) { %>
+                                    <img src="/icons/star-grey.svg" alt="Star">
+                                <% } %>
+                            </div>
+                            <div class="price text-center"><%= product.price %></div>
+                            <div class="flex justify-center">
+                                <button>
+                                    <img src="/icons/cart-2.svg" alt="Cart">
+                                    <span>Add to cart</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+        <div class="text-center btn-wrapper">
+            <button class="btn btn-secondary">View More</button>
+        </div>
+    </div>
+</section>
+
+
+<%- include('partials/footer') %>
