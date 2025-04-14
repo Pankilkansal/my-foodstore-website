@@ -1,44 +1,110 @@
 <%- include('partials/header') %>
-<section class="top-products">
-    <div class="container">
-        <h1 class="section-heading">Top Products</h1>
-        <div class="slider">
-            <button class="slider-btn prev-btn"><img src="/icons/pre.svg" alt="Previous"></button>
-            <button class="slider-btn next-btn"><img src="/icons/next.svg" alt="Next"></button>
-            <div class="food-slider">
-                <% products.forEach(product => { %>
-                    <div class="food-card magic-shadow-sm">
-                        <div class="product-image flex items-center justify-center">
-                            <img src="<%= product.image %>" alt="<%= product.name %>">
-                        </div>
-                        <hr>
-                        <div>
-                            <h2 class="text-center"><%= product.name %></h2>
-                            <div class="stars flex justify-center items-center">
-                                <% for(let i = 0; i < product.rating; i++) { %>
-                                    <img src="/icons/start-filled.svg" alt="Star">
-                                <% } %>
-                                <% for(let i = product.rating; i < 5; i++) { %>
-                                    <img src="/icons/star-grey.svg" alt="Star">
-                                <% } %>
-                            </div>
-                            <div class="price text-center"><%= product.price %></div>
-                            <div class="flex justify-center">
-                                <button>
-                                    <img src="/icons/cart-2.svg" alt="Cart">
-                                    <span>Add to cart</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                <% }); %>
-            </div>
-        </div>
-        <div class="text-center btn-wrapper">
-            <button class="btn btn-secondary">View More</button>
-        </div>
-    </div>
-</section>
 
+<section class="top-products py-8 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h1 class="section-heading text-3xl font-semibold text-center my-8 text-gray-800">Top Products</h1>
+      
+      <!-- Product Grid Section -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <% products.forEach(product => { %>
+              <div class="food-card magic-shadow-sm bg-white rounded-lg shadow-lg">
+
+                  <!-- Product Information -->
+                  <hr class="my-4">
+                  <!-- Product Image -->
+                  <div class="product-image flex items-center justify-center">
+                    <img src="<%= product.image %>" alt="<%= product.name %>" class="w-full h-auto rounded-t-lg">
+                </div>
+
+                  <div class="product-info text-center px-4 pb-4">
+                      <h2 class="text-lg font-medium text-gray-800"><%= product.name %></h2>
+
+                      <!-- Rating -->
+                      <div class="stars flex justify-center items-center my-2">
+                          <% for (let i = 0; i < product.rating; i++) { %>
+                              <img src="/icons/start-filled.svg" alt="Star" class="w-5 h-5">
+                          <% } %>
+                          <% for (let i = product.rating; i < 5; i++) { %>
+                              <img src="/icons/star-grey.svg" alt="Star" class="w-5 h-5">
+                          <% } %>
+                      </div>
+
+                      <!-- Description -->
+                      <p class="text-gray-600 text-sm mt-2"><%= product.description %></p>
+
+                   <!-- Price -->
+                            <div class="price text-xl font-semibold text-green-600 mt-4">
+                                $<%= Number(product.price).toFixed(2) %>
+                            </div>
+
+
+                      <!-- Add to Cart Button -->
+                      <div class="flex justify-center mt-4">
+                          <button class="add-to-cart-btn bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-yellow-600 inline-flex items-center transition duration-200 ease-in-out">
+                              <img src="/icons/cart-2.svg" alt="Cart" class="w-5 h-5 mr-2">
+                              <span>Add to cart</span>
+                          </button>
+                      </div>
+
+                      <!-- Delete Button -->
+                      <form action="/product/<%= product._id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                          <button type="submit" class="delete-btn bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 mt-2 transition duration-200 ease-in-out">
+                              Delete
+                          </button>
+                      </form>
+                  </div>
+              </div>
+          <% }); %>
+      </div>
+
+    </div>
+
+    <!-- Add Product Form -->
+    <div class="mt-12 px-4">
+        <h2 class="text-3xl font-semibold text-center mb-8 text-gray-800">Add New Product</h2>
+        <form action="/product/add" method="POST" class="space-y-6 max-w-lg mx-auto bg-white p-8 rounded-lg shadow-2xl border border-gray-100 hover:shadow-lg transition-all duration-300 ease-in-out">
+            <!-- Product Name Input -->
+            <div>
+                <label for="name" class="block text-lg font-medium text-gray-700 mb-2">Product Name:</label>
+                <input type="text" id="name" name="name" required 
+                       class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ease-in-out shadow-sm hover:shadow-md">
+            </div>
+    
+            <!-- Image URL Input -->
+            <div>
+                <label for="image" class="block text-lg font-medium text-gray-700 mb-2">Image URL:</label>
+                <input type="text" id="image" name="image" required 
+                       class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ease-in-out shadow-sm hover:shadow-md">
+            </div>
+    
+            <!-- Description Input -->
+            <div>
+                <label for="description" class="block text-lg font-medium text-gray-700 mb-2">Description:</label>
+                <input type="text" id="description" name="description" required 
+                       class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ease-in-out shadow-sm hover:shadow-md">
+            </div>
+    
+            <!-- Price Input -->
+            <div>
+                <label for="price" class="block text-lg font-medium text-gray-700 mb-2">Price:</label>
+                <input type="number" id="price" name="price" required 
+                       class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ease-in-out shadow-sm hover:shadow-md">
+            </div>
+    
+            <!-- Add Product Button -->
+            <div class="text-center">
+                <button type="submit"
+  class="bg-gradient-to-r from-yellow-400 to-yellow-500 text-white font-semibold px-8 py-3 rounded-lg shadow-lg
+         hover:from-yellow-500 hover:to-yellow-600 transition-all duration-300 ease-in-out
+         focus:outline-none focus:ring-2 focus:ring-yellow-300">
+  Add Product
+</button>
+
+            </div>
+        </form>
+    </div>
+    
+    
+</section>
 
 <%- include('partials/footer') %>
